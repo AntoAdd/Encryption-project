@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <ctype.h>
 #include "decryption.h"
 #include "text_elements.h"
@@ -24,7 +23,9 @@ void caesar_decrypt(char *str, int k) {
         char current = str[i];
         int substitution_pos = -1;
 
-        if (isdigit(current)) {
+        if (current == '\n' || current == '\t' || current == ' ') {
+            continue;
+        } else if (isdigit(current)) {
             substitution_pos = get_element_position(numbers, current, 10);
             str[i] = decrypted_numbers[substitution_pos];
         } else if (isalpha(current)) {

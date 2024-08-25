@@ -3,9 +3,9 @@
 #include "decryption.h"
 
 int main(void){
-    char sentence[] = "Abcd1239?!";
+    char sentence[] = "Abcd\t1239?!\n'\"ciao8";
 
-    printf("Before encryotion: %s\n\n", sentence);
+    printf("Before encryption: %s\n\n", sentence);
 
     caesar_encrypt(sentence, 3);
 

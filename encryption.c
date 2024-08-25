@@ -23,7 +23,10 @@ void caesar_encrypt(char *str, int k) {
     for (int i = 0; str[i] != '\0'; i++) {
         char current = str[i];
         int substitution_pos = -1;
-        if (isdigit(current)) {
+
+        if (current == '\n' || current == '\t' || current == ' ') {
+            continue;
+        } else if (isdigit(current)) {
             substitution_pos = get_element_pos(numbers, current, 10);
             str[i] = encrypted_numbers[substitution_pos];
         } else if (isalpha(current)) {

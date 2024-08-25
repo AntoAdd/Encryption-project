@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "decryption.h"
-
-const char d_letters[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-const char d_numbers[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-const char d_symbols[] = {'.', ',', ';', ':', '?', '!', '-', '_', '@', '"', '(', ')', '\''};
+#include "text_elements.h"
 
 char decrypted_letters[26];
 char decrypted_numbers[10];
@@ -28,26 +25,26 @@ void caesar_decrypt(char *str, int k) {
         int substitution_pos = -1;
 
         if (isdigit(current)) {
-            substitution_pos = get_element_position(d_numbers, current, 10);
+            substitution_pos = get_element_position(numbers, current, 10);
             str[i] = decrypted_numbers[substitution_pos];
         } else if (isalpha(current)) {
-           substitution_pos = get_element_position(d_letters, tolower(current), 26);
+           substitution_pos = get_element_position(letters, tolower(current), 26);
            if (islower(current)) {
                 str[i] = decrypted_letters[substitution_pos];
             } else {
                 str[i] = toupper(decrypted_letters[substitution_pos]);
             } 
         } else {
-            substitution_pos = get_element_position(d_symbols, current, 13);
+            substitution_pos = get_element_position(symbols, current, 13);
             str[i] = decrypted_symbols[substitution_pos];
         }
     }
 }
 
 void decrypt_all_elements(int k) {
-    decrypt_elements(d_letters, decrypted_letters, k, 26);
-    decrypt_elements(d_numbers, decrypted_numbers, k, 10);
-    decrypt_elements(d_symbols, decrypted_symbols, k, 13);
+    decrypt_elements(letters, decrypted_letters, k, 26);
+    decrypt_elements(numbers, decrypted_numbers, k, 10);
+    decrypt_elements(symbols, decrypted_symbols, k, 13);
 }
 
 void decrypt_elements(const char src_array[], char dst_array[], int k, int l) {

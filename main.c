@@ -13,7 +13,7 @@ int main(void){
 
     caesar_decrypt(sentence, 3);
 
-    printf("After decryprion: %s\n\n", sentence);
+    printf("After decryption: %s\n\n", sentence);
     
     return 0;
 }

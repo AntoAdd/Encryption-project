@@ -20,9 +20,6 @@ int main(int argc, char* argv[]){
         return -1;
     }
 
-    printf("%s\n", argv[1]);
-
-
     if (strcmp(argv[1], "1") == 0) {
         printf("Entered if\n");
         return send_file("example.txt", "antonio-VMware-Virtual-Platform");
@@ -31,7 +28,6 @@ int main(int argc, char* argv[]){
     sleep(70);
 
     printf("After thread creation\n");
-    
     
     return 0;
 }

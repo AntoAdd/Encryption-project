@@ -34,7 +34,7 @@ int send_file(const char *file_path, const char *hostname) {
         client_error("Error creating socket.");
     }
 
-    server = gethostbyname((char *)hostname);
+    server = gethostbyname(hostname);
 
     if (server == NULL) {
         fprintf(stderr,"ERROR, no such host\n");

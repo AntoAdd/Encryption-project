@@ -89,10 +89,12 @@ void start_server() {
             error("Error writing to socket.");
         }
 
-        int fd = open(filename, O_CREAT|O_WRONLY);
+        int fd = open(filename, O_CREAT|O_RDWR);
+        printf("file descriptor: %d\n", fd);
 
-        write(fd, file_contents, sizeof(file_contents));
-
+        int b = write(fd, file_contents, sizeof(file_contents));
+        printf("Bytes wrote to file: %d", b);
+        
         close(fd);
         close(new_sockfd);
     }

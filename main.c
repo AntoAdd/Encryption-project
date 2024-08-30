@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <pthread.h>
 #include "encryption.h"
 #include "decryption.h"
@@ -19,12 +20,15 @@ int main(int argc, char* argv[]){
         return -1;
     }
 
+    printf("%s\n", argv[1]);
 
-    if (argv[1] == "1") {
+
+    if (strcmp(argv[1], "1") == 0) {
+        printf("Entered if\n");
         return send_file("example.txt", "antonio-VMware-Virtual-Platform");
     }
 
-    sleep(80);
+    sleep(70);
 
     printf("After thread creation\n");
     

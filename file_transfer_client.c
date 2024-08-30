@@ -57,7 +57,7 @@ int send_file(const char *file_path, const char *hostname) {
     bzero(file_contents, MAX_FILE_LENGTH);
 
     // TODO: derive filename from path
-    printf("Enter filename to transfer: ");
+    printf("Enter filename to transfer: \n");
     scanf("%s", filename);
 
     byte_wrote = write(sockfd, filename, 255);

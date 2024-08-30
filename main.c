@@ -5,20 +5,25 @@
 #include "file_encryptor.h"
 #include "file_decryptor.h"
 #include "file_transfer_server.h"
+#include "file_transfer_client.h"
 
 // only for test (sleep function)
 #include <unistd.h>
 
 void *server_fun(void *arg);
 
-int main(void){
+int main(int argc, char* argv[]){
     pthread_t server_thread;
     if (pthread_create(&server_thread, NULL, server_fun, NULL) != 0) {
         printf("Error creating server thread.");
         return -1;
     }
 
-    sleep(5);
+    if (argv[1] == "1") {
+        return send_file("example.txt", "antonio-VMware-Virtual-Platform");
+    }
+
+    sleep(80);
 
     printf("After thread creation\n");
     

@@ -65,7 +65,7 @@ int main(void) {
 
         // Reading filename from socket
         byte_read = read(new_sockfd, filename, 255);
-        printf("Filename bytes read: %d", (int) byte_read);
+        printf("Filename bytes read: %d\n", (int) byte_read);
 
         if (byte_read < 0) {
             error("Error reading from socket.");
@@ -83,6 +83,7 @@ int main(void) {
         if (file_bytes < 0) {
             error("Error reading file bytes from socket.");
         }
+        printf("File bytes read: %d\n", (int) file_bytes);
 
         byte_wrote = write(new_sockfd, "File recieved correctly!", 24);
 
@@ -94,7 +95,7 @@ int main(void) {
         printf("file descriptor: %d\n", fd);
 
         int b = write(fd, file_contents, file_bytes);
-        printf("Bytes wrote to file: %d", b);
+        printf("Bytes wrote to file: %d\n", b);
         
         close(fd);
         close(new_sockfd);

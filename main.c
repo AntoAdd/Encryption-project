@@ -24,9 +24,9 @@ int main(int argc, char* argv[]){
         }
         printf("--------------\n");
         printf("Executing parent...\n");
-        sleep(6);
+        sleep(30);
         printf("Executing parent...\n");
-        sleep(6);
+        sleep(30);
         printf("Executing parent...\n");
         return kill(pid, SIGTERM);
     }

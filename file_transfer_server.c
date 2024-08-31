@@ -27,7 +27,7 @@ void start_server() {
     char file_contents[MAX_FILE_LENGTH];
     char filename[255];
     struct sockaddr_in serv_addr, cli_addr;
-    int byte_read, byte_wrote;
+    int byte_read, byte_wrote, file_bytes;
 
     // Opening socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -66,6 +66,7 @@ void start_server() {
 
         // Reading filename from socket
         byte_read = read(new_sockfd, filename, 255);
+        printf("Filename bytes read: %d", (int) byte_read);
 
         if (byte_read < 0) {
             error("Error reading from socket.");
@@ -77,10 +78,11 @@ void start_server() {
             error("Error writing to socket.");
         }
 
-        byte_read = read(new_sockfd, file_contents, MAX_FILE_LENGTH);
+        // Reading file bytes from socket
+        file_bytes = read(new_sockfd, file_contents, MAX_FILE_LENGTH);
 
-        if (byte_read < 0) {
-            error("Error reading from socket.");
+        if (file_bytes < 0) {
+            error("Error reading file bytes from socket.");
         }
 
         byte_wrote = write(new_sockfd, "File recieved correctly!", 24);
@@ -89,10 +91,10 @@ void start_server() {
             error("Error writing to socket.");
         }
 
-        int fd = open(filename, O_CREAT|O_RDWR);
+        int fd = open(filename, O_CREAT|O_WRONLY);
         printf("file descriptor: %d\n", fd);
 
-        int b = write(fd, file_contents, sizeof(file_contents));
+        int b = write(fd, file_contents, file_bytes);
         printf("Bytes wrote to file: %d", b);
         
         close(fd);

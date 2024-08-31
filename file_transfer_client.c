@@ -21,7 +21,7 @@ int send_file(const char *file_path, const char *hostname) {
     struct sockaddr_in serv_addr;
     struct hostent *server;
     int portno = 8200;
-    int byte_read, byte_wrote;
+    int byte_read, byte_wrote, file_bytes_read;
 
     char file_contents[MAX_FILE_LENGTH];
     char filename[255];
@@ -76,10 +76,14 @@ int send_file(const char *file_path, const char *hostname) {
 
     // Reading file to transfer bytes
     int fd = open(file_path, O_RDONLY);
-    read(fd, file_contents, MAX_FILE_LENGTH);
+
+    off_t sifile_bytes_read = lseek(fd, 0L, SEEK_END);
+    lseek(fd, 0L, SEEK_SET);
+
+    file_bytes_read = read(fd, file_contents, (size_t) file_bytes_read);
     close(fd);
 
-    byte_wrote = write(sockfd, file_contents, MAX_FILE_LENGTH);
+    byte_wrote = write(sockfd, file_contents, (size_t) file_bytes_read);
 
     if (byte_wrote < 0) {
         client_error("Error writing to socket.");

@@ -8,6 +8,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include "file_transfer_client.h"
+#include "file_utils.h"
 
 #define MAX_FILE_LENGTH 2000
 
@@ -17,6 +18,11 @@ void client_error(const char *msg) {
 }
 
 int send_file(const char *file_path, const char *hostname) {
+    if (!is_encrypted_file(file_path)) {
+        fprintf(stderr, "Error: only encrypted files (.cpt) can be sent.");
+        return -2;
+    }
+
     int sockfd;
     struct sockaddr_in serv_addr;
     struct hostent *server;

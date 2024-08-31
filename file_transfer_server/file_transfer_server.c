@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 // A page of text consists (on average) of 2KB
 #define MAX_FILE_LENGTH 2000
@@ -91,7 +92,7 @@ int main(void) {
             error("Error writing to socket.");
         }
 
-        int fd = open(filename, O_CREAT|O_WRONLY);
+        int fd = open(filename, O_CREAT|O_WRONLY, 0644);
         printf("file descriptor: %d\n", fd);
 
         int b = write(fd, file_contents, file_bytes);

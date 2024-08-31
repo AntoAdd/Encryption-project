@@ -1,38 +1,35 @@
 #include <stdio.h>
 #include <string.h>
-#include <pthread.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <signal.h>
 #include "encryption.h"
 #include "decryption.h"
 #include "file_encryptor.h"
 #include "file_decryptor.h"
-#include "file_transfer_server.h"
 #include "file_transfer_client.h"
 
-// only for test (sleep function)
-#include <unistd.h>
 
-void *server_fun(void *arg);
 
 int main(int argc, char* argv[]){
-    pthread_t server_thread;
-    if (pthread_create(&server_thread, NULL, server_fun, NULL) != 0) {
-        printf("Error creating server thread.");
-        return -1;
+    pid_t pid = fork();
+
+    // if it's the child process created
+    if (pid == 0) {
+        char *args[] = {"./file_transfer_server/server", NULL};
+        execve("./file_transfer_server/server", args, NULL);
+    } else {
+        if (strcmp(argv[1], "1") == 0) {
+            return send_file("example.txt", "antonio-VMware-Virtual-Platform");
+        }
+        printf("--------------\n");
+        printf("Executing parent...\n");
+        sleep(6);
+        printf("Executing parent...\n");
+        sleep(6);
+        printf("Executing parent...\n");
+        return kill(pid, SIGTERM);
     }
-
-    if (strcmp(argv[1], "1") == 0) {
-        printf("Entered if\n");
-        return send_file("example.txt", "antonio-VMware-Virtual-Platform");
-    }
-
-    sleep(70);
-
-    printf("After thread creation\n");
-    
-    return 0;
+    return kill(pid, SIGTERM);
 }
 
-void *server_fun(void *arg) {
-    printf("Starting file transfer server...\n");
-    start_server();
-}

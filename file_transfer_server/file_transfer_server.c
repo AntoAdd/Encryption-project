@@ -8,7 +8,6 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <fcntl.h>
-#include "file_transfer_server.h"
 
 // A page of text consists (on average) of 2KB
 #define MAX_FILE_LENGTH 2000
@@ -20,7 +19,7 @@ void error(const char *msg) {
     exit(1);
 }
 
-void start_server() {
+int main(void) {
     int sockfd, new_sockfd;
     int portno = 8200;
     socklen_t clilen;
@@ -101,6 +100,7 @@ void start_server() {
         close(new_sockfd);
     }
     close(sockfd);
+    return 0;
 }
 
 const char * get_ip_addr() {

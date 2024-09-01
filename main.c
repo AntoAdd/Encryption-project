@@ -28,7 +28,6 @@ GtkBuilder *builder;
 char *file_path = "";
 char *hostname = "";
 
-
 int main(int argc, char* argv[]){
     pid_t pid = fork();
 
@@ -64,9 +63,9 @@ int main(int argc, char* argv[]){
 
         gtk_main();
 
-        return 0;
+        return kill(pid, SIGTERM);
     }
-    return 0;
+    return kill(pid, SIGTERM);
 }
 
 void on_hostname_change(GtkEntry *e) {

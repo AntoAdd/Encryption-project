@@ -54,12 +54,12 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <attributes>
-              <attribute name="font-desc" value="Monospace Bold 12"/>
+              <attribute name="font-desc" value="Monospace Bold 14"/>
             </attributes>
           </object>
           <packing>
-            <property name="x">56</property>
-            <property name="y">467</property>
+            <property name="x">50</property>
+            <property name="y">515</property>
           </packing>
         </child>
         <child>
@@ -167,6 +167,7 @@
             <property name="width-request">450</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="opacity">0.69999999999999996</property>
           </object>
           <packing>
             <property name="x">33</property>

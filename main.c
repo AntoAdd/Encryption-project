@@ -25,6 +25,9 @@ GtkWidget *decrypt_key_spin;
 GtkWidget *hostname_entry;
 GtkBuilder *builder;
 
+GdkColor red;
+GdkColor green;
+
 char *file_path = "";
 char *hostname = "";
 
@@ -59,13 +62,19 @@ int main(int argc, char* argv[]){
         hostname_entry = GTK_WIDGET(gtk_builder_get_object(builder, "hostname-entry"));
         send_btn = GTK_WIDGET(gtk_builder_get_object(builder, "send-btn"));
 
+        gdk_color_parse ("red", &red);
+        gdk_color_parse ("green", &green);
+
+        gtk_window_set_default_size(GTK_WINDOW(window), 520, 620);
+
         gtk_widget_show(window);
 
         gtk_main();
 
         return kill(pid, SIGTERM);
     }
-    return kill(pid, SIGTERM);
+    return kill(pid, SIGTERM
+    );
 }
 
 void on_hostname_change(GtkEntry *e) {
@@ -78,6 +87,7 @@ void on_file_chooser_set(GtkFileChooserButton *f) {
 
 void on_encrypt_clicked(GtkButton *b) {
     if (strcmp(file_path, "") == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: please selct a file to encrypt.");
         return;
     }
@@ -85,14 +95,17 @@ void on_encrypt_clicked(GtkButton *b) {
     int key = (int) gtk_spin_button_get_value(GTK_SPIN_BUTTON(encrypt_key_spin));
 
     if(encrypt_file(file_path, key) == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &green);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "File successfully encrypted!");
     } else {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error during encryption.");
     }
 }
 
 void on_decrypt_clicked(GtkButton *b) {
     if (strcmp(file_path, "") == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: please select a file to decrypt.");
         return;
     }
@@ -100,28 +113,37 @@ void on_decrypt_clicked(GtkButton *b) {
     int key = (int) gtk_spin_button_get_value(GTK_SPIN_BUTTON(decrypt_key_spin));
 
     if (decrypt_file(file_path, key) == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &green);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "File successfully decrypted!");
     } else {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error during decryption.");
     }
 }
 
 void on_send_clicked(GtkButton *b) {
     if (strcmp(file_path, "") == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: please select a file to send.");
         return;
     }
 
     if (strcmp(hostname, "") == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: please enter a hostname.");
         return;
     }
+
     int rc = send_file(file_path, hostname);
+
     if (rc == -2) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: can only send encrypted files.");
     } else if (rc == 0) {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &green);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "File successfully transfered!");
     } else {
+        gtk_widget_modify_fg(output_label, GTK_STATE_NORMAL, &red);
         gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) "Error: something went wrong during transfer.");
     }
 }

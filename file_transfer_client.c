@@ -19,7 +19,7 @@ void client_error(const char *msg) {
 
 int send_file(const char *file_path, const char *hostname) {
     if (!is_encrypted_file(file_path)) {
-        fprintf(stderr, "Error: only encrypted files (.cpt) can be sent.");
+        fprintf(stderr, "Error: only encrypted files (.cpt) can be sent.\n");
         return -2;
     }
 
@@ -63,11 +63,9 @@ int send_file(const char *file_path, const char *hostname) {
     bzero(message, 255);
     bzero(file_contents, MAX_FILE_LENGTH);
 
-    // TODO: derive filename from path
-    printf("Enter filename to transfer: \n");
-    scanf("%s", filename);
+    filename_from_path(file_path, filename);
 
-    byte_wrote = write(sockfd, filename, strlen(filename) + 1);
+    byte_wrote = write(sockfd, filename, strlen(filename));
 
     if (byte_wrote < 0) {
         client_error("Error writing to socket.");

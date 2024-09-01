@@ -9,7 +9,11 @@
 
 
 
-void encrypt_file(const char *file_path, int k) {
+int encrypt_file(const char *file_path, int k) {
+    if (is_encrypted_file(file_path)) {
+        return -1;
+    }
+
     int fd = open(file_path, O_RDWR);
 
     // system call lseek is used to retrive the total number of bytes of the file.
@@ -55,4 +59,5 @@ void encrypt_file(const char *file_path, int k) {
     int rc = fchmod(fd, S_IRUSR|S_IRGRP|S_IROTH);
 
     close(fd);
+    return 0;
 }

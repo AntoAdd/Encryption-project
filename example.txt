@@ -1,0 +1,7 @@
+Vinod Vaikuntanathan, the Ford Foundation Professor of Engineering at MIT, explains the potential impact: "If large-scale quantum computers ever get built, then factoring is toast and we have to find something else to use for cryptography.
+But how real is this threat?
+Can we make quantum factoring practical?
+Our work could potentially bring us one step closer to a practical implementation."
+
+Despite significant progress in quantum computing over the past three decades, we're still far from building a quantum computer powerful enough to run Shor's algorithm effectively.
+Current estimates suggest that about 20 million qubits (quantum bits) would be needed, while the largest quantum computers today have only around 1,100 qubits.

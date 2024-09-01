@@ -7,11 +7,10 @@
 #include "decryption.h"
 #include "file_utils.h"
 
-void decrypt_file(const char *file_path, int k) {
+int decrypt_file(const char *file_path, int k) {
     // Checks if the file is encrypted.
     if (!is_encrypted_file(file_path)) {
-        printf("Error: file \"%s\" is not encrypted!\n", file_path);
-        return;
+        return -1;
     }
 
     // Using chmod system call to set read and write permissions.
@@ -56,4 +55,5 @@ void decrypt_file(const char *file_path, int k) {
     rename(old_filename, new_filename);
 
     close(fd);
+    return 0;
 }

@@ -92,7 +92,11 @@ int main(void) {
             error("Error writing to socket.");
         }
 
-        int fd = open(filename, O_CREAT|O_WRONLY, 0644);
+        char file_received[strlen(filename) + 5];
+        strcpy(file_received, filename);
+        strcat(file_received, ".cpt");
+
+        int fd = open(file_received, O_CREAT|O_WRONLY, 0644);
         printf("file descriptor: %d\n", fd);
 
         int b = write(fd, file_contents, file_bytes);

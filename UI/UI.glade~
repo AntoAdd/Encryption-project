@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">26</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">26</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkWindow" id="window">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkButton" id="encrypt-btn">
+            <property name="label" translatable="yes">Encrypt</property>
+            <property name="width-request">100</property>
+            <property name="height-request">46</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_encrypt_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">140</property>
+            <property name="y">222</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="decrypt-btn">
+            <property name="label" translatable="yes">Decrypt</property>
+            <property name="width-request">100</property>
+            <property name="height-request">46</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_decrypt_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">257</property>
+            <property name="y">222</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="output-lbl">
+            <property name="width-request">400</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 12"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">56</property>
+            <property name="y">467</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">File Encryptor/Decryptor</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 20"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">74</property>
+            <property name="y">22</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFileChooserButton" id="file-chooser">
+            <property name="width-request">300</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes"/>
+            <signal name="file-set" handler="on_file_chooser_set" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">167</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="encrypt-key-spin">
+            <property name="width-request">49</property>
+            <property name="height-request">32</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="input-purpose">digits</property>
+            <property name="adjustment">adjustment1</property>
+          </object>
+          <packing>
+            <property name="x">167</property>
+            <property name="y">127</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="file-choose-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Choose a file:</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 10"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">33</property>
+            <property name="y">88</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="encryption-key-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Encryption key:</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 10"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">33</property>
+            <property name="y">135</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="decrypt-key-spin">
+            <property name="width-request">49</property>
+            <property name="height-request">32</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="adjustment">adjustment2</property>
+          </object>
+          <packing>
+            <property name="x">167</property>
+            <property name="y">174</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="decryption-key-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Decryption key:</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 10"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">33</property>
+            <property name="y">183</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator" id="separator">
+            <property name="width-request">450</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">33</property>
+            <property name="y">285</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="send-btn">
+            <property name="label" translatable="yes">Send</property>
+            <property name="width-request">100</property>
+            <property name="height-request">46</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_send_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">199</property>
+            <property name="y">404</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title2-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">File Transfer</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 20"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">144</property>
+            <property name="y">295</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="hostname-entry">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">Enter hostname</property>
+            <signal name="changed" handler="on_hostname_change" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">237</property>
+            <property name="y">347</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="hostname-entry-lbl">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Send to:</property>
+            <attributes>
+              <attribute name="font-desc" value="Monospace Bold 10"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">137</property>
+            <property name="y">355</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

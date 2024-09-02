@@ -93,7 +93,7 @@ void on_encrypt_clicked(GtkButton *b) {
     if(encrypt_file(file_path, key) == 0) {
         set_output_success_msg("File successfully encrypted!");
     } else {
-        set_output_error_msg("Error: only text files can be encrypted.");
+        set_output_error_msg("Error: encryption not allowed");
     }
 }
 
@@ -108,7 +108,7 @@ void on_decrypt_clicked(GtkButton *b) {
     if (decrypt_file(file_path, key) == 0) {
         set_output_success_msg("File successfully decrypted!");
     } else {
-        set_output_error_msg("Error: only encrypted files can be decryped.");
+        set_output_error_msg("Error: decryption not allowed.");
     }
 }
 

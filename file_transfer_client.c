@@ -19,7 +19,6 @@ void client_error(const char *msg) {
 
 int send_file(const char *file_path, const char *hostname) {
     if (!is_encrypted_file(file_path)) {
-        fprintf(stderr, "Error: only encrypted files (.cpt) can be sent.\n");
         return -2;
     }
 
@@ -38,14 +37,13 @@ int send_file(const char *file_path, const char *hostname) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sockfd < 0) {
-        client_error("Error creating socket.");
+        return -4;
     }
 
     server = gethostbyname(hostname);
 
     if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
-        exit(0);
+        return -5;
     }
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -56,8 +54,10 @@ int send_file(const char *file_path, const char *hostname) {
          server->h_length);
     serv_addr.sin_port = htons(portno);
 
-    if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
-        client_error("Connection error.");
+    if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) {
+        return -6;
+    }
+        
 
     bzero(filename, 255);
     bzero(message, 255);
@@ -68,13 +68,13 @@ int send_file(const char *file_path, const char *hostname) {
     byte_wrote = write(sockfd, filename, strlen(filename));
 
     if (byte_wrote < 0) {
-        client_error("Error writing to socket.");
+        return -7;
     }
 
     byte_read = read(sockfd, message, 255);
 
     if (byte_read < 0) {
-        client_error("Error reading from socket.");
+        return -8;
     }
 
     printf("%s\n", message);
@@ -93,13 +93,17 @@ int send_file(const char *file_path, const char *hostname) {
     byte_wrote = write(sockfd, file_contents, (size_t) file_bytes_read);
 
     if (byte_wrote < 0) {
-        client_error("Error writing to socket.");
+        return -7;
     }
 
     byte_read = read(sockfd, message, 255);
 
     if (byte_read < 0) {
-        client_error("Error reading from socket.");
+        return -8;
+    }
+
+    if (strcmp(message, "Error: file already exists.") == 0) {
+        return -3;
     }
 
     printf("%s\n", message);

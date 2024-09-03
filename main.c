@@ -30,6 +30,7 @@ char *hostname = "";
 
 void set_output_error_msg(const char *msg);
 void set_output_success_msg(const char *msg);
+const char* get_transfer_error_msg(int rc);
 
 int main(int argc, char* argv[]){
     pid_t pid = fork();
@@ -125,12 +126,10 @@ void on_send_clicked(GtkButton *b) {
 
     int rc = send_file(file_path, hostname);
 
-    if (rc == -2) {
-        set_output_error_msg("Error: can only send encrypted files.");
-    } else if (rc == 0) {
+    if (rc == 0) {
         set_output_success_msg("File successfully transfered!");
     } else {
-        set_output_error_msg("Error: something went wrong during transfer.");
+        set_output_error_msg(get_transfer_error_msg(rc));
     }
 }
 
@@ -144,5 +143,24 @@ void set_output_success_msg(const char *msg) {
     gtk_label_set_text(GTK_LABEL(output_label), (const gchar *) msg);
 }
 
-
+const char* get_transfer_error_msg(int rc) {
+    switch(rc) {
+        case -2:
+            return "Error: can only send encrypted files.";
+        case -3:
+            return "Error: file already exists.";
+        case -4:
+            return "Error: socket creation failed.";
+        case -5:
+            return "Error: host not found.";
+        case -6:
+            return "Error: connection declined.";
+        case -7:
+            return "Error: socket write failed.";
+        case -8:
+            return "Error: socket read failed.";
+        default:
+            return "Error: something went wrong during transfer.";
+    }
+}
 

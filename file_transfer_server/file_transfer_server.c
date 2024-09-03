@@ -86,17 +86,22 @@ int main(void) {
         }
         printf("File bytes read: %d\n", (int) file_bytes);
 
-        byte_wrote = write(new_sockfd, "File recieved correctly!", 24);
-
-        if (byte_wrote < 0) {
-            error("Error writing to socket.");
-        }
-
         char file_received[strlen(filename) + 5];
         strcpy(file_received, filename);
         strcat(file_received, ".cpt");
 
         int fd = open(file_received, O_CREAT|O_WRONLY, 0644);
+
+        if (fd == -1) {
+            byte_wrote = write(new_sockfd, "Error: file already exists.", 27);
+        } else {
+            byte_wrote = write(new_sockfd, "File recieved correctly!", 24);
+        }
+
+        if (byte_wrote < 0) {
+            error("Error writing to socket.");
+        }
+
         printf("file descriptor: %d\n", fd);
 
         int b = write(fd, file_contents, file_bytes);
